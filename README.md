@@ -1,16 +1,8 @@
 # itunes_app
 
-A new Flutter project.
+Project by Rama Muhammad Sugiyanto
 
 ## Getting Started
+Hi! here I use the flutter framework to work on this project, here I make a duplicate application for itunes, I also use clean architecture, design pattern and state management (BloC)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![http://url/to/img.png](https://www.freepnglogos.com/uploads/itunes-logo/apple-music-itunes-png-logo-9.jpg)
