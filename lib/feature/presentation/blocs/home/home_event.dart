@@ -9,9 +9,14 @@ abstract class HomeEvent extends Equatable {
   List<Object> get props => [];
 }
 
-
 class DoSearchListMusic extends HomeEvent {
   String? query;
 
   DoSearchListMusic({this.query});
+}
+
+class GoToDetailMusicPage extends HomeEvent {
+  int? id;
+
+  GoToDetailMusicPage({this.id});
 }

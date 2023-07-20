@@ -6,8 +6,11 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:itunes_app/app/core/di/locator.dart';
+import 'package:itunes_app/app/router/routes.dart';
 import 'package:itunes_app/feature/data/models/search_model.dart';
 import 'package:itunes_app/feature/data/repository/search/search_repo.dart';
+
+import '../detail_music/detail_music_bloc.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
@@ -28,6 +31,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       }, (r) {
         inspect(r);
       });
+    });
+
+    on<GoToDetailMusicPage>((event, emit) {
+      Navigator.pushNamed(context, Routes.detailMusic,
+          arguments: DetailMusicArgs(artisId: event.id ?? 0));
     });
   }
 }
