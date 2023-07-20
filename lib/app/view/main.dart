@@ -15,6 +15,9 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(initialRoute: Routes.splash, routes: AppRouter.pages);
+    return MaterialApp(
+      initialRoute: Routes.splash,
+      routes: AppRouter.pages,
+    );
   }
 }

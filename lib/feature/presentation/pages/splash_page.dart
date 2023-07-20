@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:itunes_app/app/router/routes.dart';
 import 'package:itunes_app/feature/presentation/blocs/splash/splash_bloc.dart';
+import 'package:itunes_app/feature/presentation/widget/atoms/colors.dart';
+import 'package:shimmer/shimmer.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
@@ -14,11 +15,13 @@ class SplashPage extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             backgroundColor: Colors.white,
-            body: InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, Routes.homePage);
-              },
-              child: const SafeArea(child: Text('TESTING')),
+            body: Center(
+              child: Shimmer.fromColors(
+                baseColor: AtomColors.primaryColor,
+                highlightColor: Colors.black12,
+                child: Image.asset('assets/icons/ic-apple.png',
+                    width: 80, height: 80),
+              ),
             ),
           );
         },

@@ -9,7 +9,6 @@ part 'splash_event.dart';
 part 'splash_state.dart';
 
 class SplashBloc extends Bloc<SplashEvent, SplashState> {
-  late BuildContext context;
   SplashBloc(BuildContext context) : super(SplashInitial()) {
     on<GoToHomePage>((event, emit) async {
       await Future.delayed(const Duration(seconds: 2), () {

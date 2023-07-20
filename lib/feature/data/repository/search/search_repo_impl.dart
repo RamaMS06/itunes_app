@@ -7,5 +7,5 @@ import 'package:itunes_app/feature/data/repository/search/search_repo.dart';
 class SearchRepoImpl implements SearchRepo {
   final SearchDataSource _dataSource = locator.get<SearchDataSource>();
   @override
-  Future<Either<SearchModel, String>> getSearch() => _dataSource.getSearch();
+  Future<Either<SearchModel, String>> getSearch(String query) => _dataSource.getSearch(query);
 }
