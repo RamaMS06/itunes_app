@@ -44,96 +44,110 @@ class HomePage extends StatelessWidget {
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 36 / 2),
                                     child: Container(
-                                      color: Colors.black12,
-                                      height: 1,
-                                      width: MediaQuery.of(context).size.width,
-                                    ),
+                                        color: Colors.black12,
+                                        height: 1,
+                                        width:
+                                            MediaQuery.of(context).size.width),
                                   ),
                               shrinkWrap: true,
                               physics: const PageScrollPhysics(),
                               itemCount: state.searchModel.resultCount ?? 0,
-                              itemBuilder: ((context, index) => Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Expanded(
-                                        child: Row(
-                                          children: [
-                                            Container(
-                                              width: 60,
-                                              height: 60,
-                                              clipBehavior:
-                                                  Clip.antiAliasWithSaveLayer,
-                                              decoration: BoxDecoration(
-                                                  boxShadow: const [
-                                                    BoxShadow(
-                                                        offset: Offset(0, 5),
-                                                        blurRadius: 8,
-                                                        spreadRadius: 3,
-                                                        color: AtomColors
-                                                            .primaryColor)
-                                                  ],
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10)),
-                                              child: CachedNetworkImage(
-                                                  fit: BoxFit.cover,
-                                                  filterQuality:
-                                                      FilterQuality.high,
-                                                  imageUrl: state
-                                                          .searchModel
-                                                          .results?[index]
-                                                          .artworkUrl100 ??
-                                                      ''),
-                                            ),
-                                            const SizedBox(width: 16),
-                                            Flexible(
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 8),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      state
-                                                              .searchModel
-                                                              .results?[index]
-                                                              .trackName ??
-                                                          '',
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: const TextStyle(
-                                                          fontSize: 17,
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                    ),
-                                                    const SizedBox(height: 4),
-                                                    Text(
+                              itemBuilder: ((context, index) => InkWell(
+                                    splashColor: Colors.transparent,
+                                    onTap: () {
+                                      context.read<HomeBloc>().add(
+                                          GoToDetailMusicPage(
+                                              id: state
+                                                      .searchModel
+                                                      .results?[index]
+                                                      .artistId ??
+                                                  0));
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Expanded(
+                                          child: Row(
+                                            children: [
+                                              Container(
+                                                width: 60,
+                                                height: 60,
+                                                clipBehavior:
+                                                    Clip.antiAliasWithSaveLayer,
+                                                decoration: BoxDecoration(
+                                                    boxShadow: const [
+                                                      BoxShadow(
+                                                          offset: Offset(0, 5),
+                                                          blurRadius: 8,
+                                                          spreadRadius: 3,
+                                                          color: AtomColors
+                                                              .primaryColor)
+                                                    ],
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                                child: CachedNetworkImage(
+                                                    fit: BoxFit.cover,
+                                                    filterQuality:
+                                                        FilterQuality.high,
+                                                    imageUrl: state
+                                                            .searchModel
+                                                            .results?[index]
+                                                            .artworkUrl100 ??
+                                                        ''),
+                                              ),
+                                              const SizedBox(width: 16),
+                                              Flexible(
+                                                child: Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(vertical: 8),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
                                                         state
                                                                 .searchModel
                                                                 .results?[index]
-                                                                .artistName ??
+                                                                .trackName ??
                                                             '',
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
                                                         style: const TextStyle(
-                                                            fontSize: 13,
+                                                            fontSize: 17,
                                                             fontWeight:
                                                                 FontWeight
-                                                                    .w400))
-                                                  ],
+                                                                    .w600),
+                                                      ),
+                                                      const SizedBox(height: 4),
+                                                      Text(
+                                                          state
+                                                                  .searchModel
+                                                                  .results?[
+                                                                      index]
+                                                                  .artistName ??
+                                                              '',
+                                                          style: const TextStyle(
+                                                              fontSize: 13,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400))
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      const SizedBox(width: 8),
-                                      const Icon(CupertinoIcons.play_circle,
-                                          size: 30)
-                                    ],
+                                        const SizedBox(width: 8),
+                                        const Icon(CupertinoIcons.play_circle,
+                                            size: 30)
+                                      ],
+                                    ),
                                   ))),
                         );
                       } else {
