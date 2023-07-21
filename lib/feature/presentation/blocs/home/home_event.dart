@@ -15,8 +15,14 @@ class DoSearchListMusic extends HomeEvent {
   DoSearchListMusic({this.query});
 }
 
-class GoToDetailMusicPage extends HomeEvent {
-  int? id;
+class PlayMusic extends HomeEvent {
+  int? index;
 
-  GoToDetailMusicPage({this.id});
+  PlayMusic(this.index);
+}
+
+class GoToDetailMusicPage extends HomeEvent {
+  int? index;
+
+  GoToDetailMusicPage({this.index});
 }

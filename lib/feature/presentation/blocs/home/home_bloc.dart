@@ -9,6 +9,7 @@ import 'package:itunes_app/app/core/di/locator.dart';
 import 'package:itunes_app/app/router/routes.dart';
 import 'package:itunes_app/feature/data/models/search_model.dart';
 import 'package:itunes_app/feature/data/repository/search/search_repo.dart';
+import 'package:just_audio/just_audio.dart';
 
 import '../detail_music/detail_music_bloc.dart';
 
@@ -17,6 +18,7 @@ part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   TextEditingController searchController = TextEditingController();
+  final player = AudioPlayer();
   HomeBloc(BuildContext context) : super(HomeInitial()) {
     on<DoSearchListMusic>((event, emit) async {
       emit(SearchDataLoading());
@@ -33,9 +35,16 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       });
     });
 
+    on<PlayMusic>((event, emit) async {
+      // final duration = await player.setUrl(
+      //     state.searchModel.results?[event.index ?? 0].previewUrl ?? '');
+      // player.play();
+    });
+
     on<GoToDetailMusicPage>((event, emit) {
       Navigator.pushNamed(context, Routes.detailMusic,
-          arguments: DetailMusicArgs(artisId: event.id ?? 0));
+          arguments: DetailMusicArgs(
+              resultModel: state.searchModel.results?[event.index ?? 0] ?? SearchResultModel()));
     });
   }
 }

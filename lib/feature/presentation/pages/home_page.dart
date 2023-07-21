@@ -56,12 +56,7 @@ class HomePage extends StatelessWidget {
                                     splashColor: Colors.transparent,
                                     onTap: () {
                                       context.read<HomeBloc>().add(
-                                          GoToDetailMusicPage(
-                                              id: state
-                                                      .searchModel
-                                                      .results?[index]
-                                                      .artistId ??
-                                                  0));
+                                          GoToDetailMusicPage(index: index));
                                     },
                                     child: Row(
                                       mainAxisAlignment:
