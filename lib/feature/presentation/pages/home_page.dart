@@ -25,10 +25,11 @@ class HomePage extends StatelessWidget {
                       padding: const EdgeInsets.all(20),
                       child: TextFormFieldTemplate(
                           controller: controller.searchController,
+                          onFieldSubmitted: (val) {
+                            controller.add(DoSearchListMusic(query: val));
+                          },
                           onChanged: (val) {
-                            context
-                                .read<HomeBloc>()
-                                .add(DoSearchListMusic(query: val));
+                            controller.add(DoSearchListMusic(query: val));
                           })),
                   BlocBuilder<HomeBloc, HomeState>(
                     builder: (context, state) {
@@ -55,7 +56,7 @@ class HomePage extends StatelessWidget {
                               itemBuilder: ((context, index) => InkWell(
                                     splashColor: Colors.transparent,
                                     onTap: () {
-                                      context.read<HomeBloc>().add(
+                                      controller.add(
                                           GoToDetailMusicPage(index: index));
                                     },
                                     child: Row(
@@ -150,10 +151,8 @@ class HomePage extends StatelessWidget {
                           children: const [
                             Icon(CupertinoIcons.music_note_2, size: 30),
                             SizedBox(height: 8),
-                            Text(
-                              'Music not found',
-                              style: TextStyle(fontWeight: FontWeight.w300),
-                            ),
+                            Text('Music not found',
+                                style: TextStyle(fontWeight: FontWeight.w300)),
                           ],
                         );
                       }

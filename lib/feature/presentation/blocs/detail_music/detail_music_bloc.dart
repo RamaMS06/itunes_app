@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,8 @@ class DetailMusicArgs {
 
 class DetailMusicBloc extends Bloc<DetailMusicEvent, DetailMusicState> {
   final AudioPlayer _player = AudioPlayer();
+  final double maxLengthMusic = 29;
+
   DetailMusicBloc(BuildContext context, DetailMusicArgs args)
       : super(DetailMusicInitial()) {
     on<FetchDetailMusic>((event, emit) async {
@@ -33,14 +37,10 @@ class DetailMusicBloc extends Bloc<DetailMusicEvent, DetailMusicState> {
           musicIndex: state.musicIndex));
     });
 
-    on<PlayMusic>((event, emit) {
+    on<PlayMusic>((event, emit) async {
       _player.play();
-      _player.playerStateStream.listen((state) {
-        if (state.playing) {
-          _player.positionStream.listen((event) {
-            add(ProgressIndexMusic(event.inSeconds.toDouble()));
-          });
-        }
+      _player.positionStream.listen((event) {
+        add(ProgressIndexMusic(event.inSeconds));
       });
       emit(DetailMusicLoaded(
           resultModel: state.resultModel,
@@ -49,10 +49,10 @@ class DetailMusicBloc extends Bloc<DetailMusicEvent, DetailMusicState> {
     });
 
     on<SliderIndexMusic>((event, emit) async {
+      await _player.seek(Duration(seconds: (event.musicIndex).round()));
       add(PauseMusic());
-      await _player.seek(Duration(seconds: (event.musicIndex).toInt()));
-      await Future.delayed(const Duration(milliseconds: 1500));
-      add(PlayMusic(event.musicIndex, state.isPlayed ?? false));
+      await Future.delayed(const Duration(milliseconds: 2000));
+      add(PlayMusic(event.musicIndex, false));
       emit(DetailMusicLoaded(
           resultModel: state.resultModel,
           musicIndex: event.musicIndex,
@@ -62,7 +62,7 @@ class DetailMusicBloc extends Bloc<DetailMusicEvent, DetailMusicState> {
     on<ProgressIndexMusic>((event, emit) {
       emit(DetailMusicLoaded(
           resultModel: state.resultModel,
-          musicIndex: event.musicIndex,
+          musicIndex: event.musicIndex ,
           isPlayed: state.isPlayed));
     });
 
@@ -72,6 +72,34 @@ class DetailMusicBloc extends Bloc<DetailMusicEvent, DetailMusicState> {
           resultModel: state.resultModel,
           musicIndex: state.musicIndex,
           isPlayed: false));
+    });
+
+    on<DoPreviouseMusic>((event, emit) async {
+      if ((state.musicIndex ?? 0) >= 2) {
+        add(PauseMusic());
+        final previouss = (state.musicIndex ?? 0) - 2;
+        await _player.seek(Duration(seconds: previouss.round()));
+        await Future.delayed(const Duration(milliseconds: 500));
+        add(PlayMusic(previouss, state.isPlayed ?? false));
+        emit(DetailMusicLoaded(
+            resultModel: state.resultModel,
+            musicIndex: previouss,
+            isPlayed: state.isPlayed ?? false));
+      }
+    });
+
+    on<DoForwardMusic>((event, emit) async {
+      if ((state.musicIndex ?? 0) < maxLengthMusic) {
+        add(PauseMusic());
+        final forward = (state.musicIndex ?? 0) + 2;
+        await _player.seek(Duration(seconds: forward.round()));
+        await Future.delayed(const Duration(milliseconds: 500));
+        add(PlayMusic(forward, state.isPlayed ?? false));
+        emit(DetailMusicLoaded(
+            resultModel: state.resultModel,
+            musicIndex: forward,
+            isPlayed: state.isPlayed ?? false));
+      }
     });
 
     on<DisposeMusic>((event, emit) {

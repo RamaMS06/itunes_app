@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:itunes_app/app/router/app_router.dart';
 import 'package:itunes_app/app/router/routes.dart';
 
@@ -15,6 +16,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MaterialApp(
       initialRoute: Routes.splash,
       routes: AppRouter.pages,

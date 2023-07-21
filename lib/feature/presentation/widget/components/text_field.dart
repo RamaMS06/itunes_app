@@ -7,8 +7,13 @@ class TextFormFieldTemplate extends StatelessWidget {
   final TextEditingController controller;
   final String? hint;
   final Function(String)? onChanged;
+  final Function(String)? onFieldSubmitted;
   const TextFormFieldTemplate(
-      {required this.controller, this.hint, this.onChanged, super.key});
+      {required this.controller,
+      this.hint,
+      this.onChanged,
+      this.onFieldSubmitted,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +22,11 @@ class TextFormFieldTemplate extends StatelessWidget {
       controller: controller,
       cursorColor: Colors.black,
       style: const TextStyle(fontSize: 16),
+      onFieldSubmitted: onFieldSubmitted,
       cursorWidth: 1,
       decoration: InputDecoration(
-          prefixIcon: const Icon(
-            CupertinoIcons.search,
-            color: AtomColors.primaryColor,
-          ),
+          prefixIcon:
+              const Icon(CupertinoIcons.search, color: AtomColors.primaryColor),
           contentPadding: const EdgeInsets.symmetric(horizontal: 16),
           hintText: hint ?? 'search music..',
           hintStyle: const TextStyle(fontSize: 14),

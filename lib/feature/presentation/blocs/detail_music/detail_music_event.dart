@@ -17,7 +17,7 @@ class TurnPlayMusic extends DetailMusicEvent {
 }
 
 class PlayMusic extends DetailMusicEvent {
-  double musicIndex;
+  int musicIndex;
   bool isPlayed;
   PlayMusic(this.musicIndex, this.isPlayed);
 }
@@ -25,13 +25,17 @@ class PlayMusic extends DetailMusicEvent {
 class PauseMusic extends DetailMusicEvent {}
 
 class SliderIndexMusic extends DetailMusicEvent {
-  double musicIndex;
+  int musicIndex;
   SliderIndexMusic(this.musicIndex);
 }
 
 class ProgressIndexMusic extends DetailMusicEvent {
-  double musicIndex;
+  int musicIndex;
   ProgressIndexMusic(this.musicIndex);
 }
+
+class DoPreviouseMusic extends DetailMusicEvent {}
+
+class DoForwardMusic extends DetailMusicEvent{}
 
 class DisposeMusic extends DetailMusicEvent {}
